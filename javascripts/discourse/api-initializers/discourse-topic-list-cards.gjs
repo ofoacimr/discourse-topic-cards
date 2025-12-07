@@ -31,7 +31,6 @@ import TopicActionButtons from "../components/topic-action-buttons";
 import TopicByline from "../components/topic-byline";
 import TopicExcerpt from "../components/topic-excerpt";
 import TopicMetadata from "../components/topic-metadata";
-import TopicTagsInline from "../components/topic-tags-inline";
 import TopicThumbnail from "../components/topic-thumbnail";
 
 // Module-scoped state for effective category sets (view-only, cleared on page change)
@@ -235,7 +234,10 @@ export default apiInitializer((api) => {
         effectiveCategorySets = computeEffectiveCategorySets();
       } catch (error) {
         // Fall back to base sets if computation fails (prevents error loops)
-        console.warn("[Topic Cards] Failed to compute effective category sets:", error);
+        console.warn(
+          "[Topic Cards] Failed to compute effective category sets:",
+          error
+        );
         effectiveCategorySets = {
           desktop: {
             list: parseCategoryList(settings.list_view_categories),
@@ -306,7 +308,6 @@ export default apiInitializer((api) => {
       }
 
       <template>
-        <TopicTagsInline @topic={{@outletArgs.topic}} />
         <TopicExcerpt @topic={{@outletArgs.topic}} />
         <TopicByline @topic={{@outletArgs.topic}} />
         <TopicActionButtons @topic={{@outletArgs.topic}} />

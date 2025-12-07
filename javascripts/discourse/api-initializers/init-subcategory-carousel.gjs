@@ -123,9 +123,7 @@ export default apiInitializer((api) => {
     if (!site?.categories) {
       return [];
     }
-    const categories = Array.isArray(site.categories)
-      ? site.categories
-      : [];
+    const categories = Array.isArray(site.categories) ? site.categories : [];
     return categories.filter((c) => c.parent_category_id === categoryId);
   }
 
@@ -167,7 +165,11 @@ export default apiInitializer((api) => {
       const previousModule = window.module;
       const previousExports = window.exports;
       const hadAMD = typeof previousDefine === "function" && previousDefine.amd;
-      log("ensureEmblaLoaded: env guards", { hadAMD, hasModule: typeof previousModule !== "undefined", hasExports: typeof previousExports !== "undefined" });
+      log("ensureEmblaLoaded: env guards", {
+        hadAMD,
+        hasModule: typeof previousModule !== "undefined",
+        hasExports: typeof previousExports !== "undefined",
+      });
       try {
         if (hadAMD) {
           window.define = undefined;
@@ -195,7 +197,9 @@ export default apiInitializer((api) => {
       const present = !!window.EmblaCarousel;
       log("ensureEmblaLoaded: loaded, Embla present?", present);
       if (!present) {
-        warn("ensureEmblaLoaded: script loaded but EmblaCarousel not found on window");
+        warn(
+          "ensureEmblaLoaded: script loaded but EmblaCarousel not found on window"
+        );
       }
       return present;
     } catch (e) {
@@ -224,9 +228,9 @@ export default apiInitializer((api) => {
       // Try category-boxes-with-topics layout first (modern)
       const boxSection = document.querySelector(".category-boxes-with-topics");
       if (boxSection) {
-        const boxes = [...boxSection.querySelectorAll(".category.category-box")].filter(
-          (el) => el.parentElement === boxSection
-        );
+        const boxes = [
+          ...boxSection.querySelectorAll(".category.category-box"),
+        ].filter((el) => el.parentElement === boxSection);
         if (boxes.length > 0) {
           subcategoryContainer = boxSection;
           subcategoryItems = boxes;
@@ -272,7 +276,12 @@ export default apiInitializer((api) => {
         return;
       }
 
-      log("transform: proceeding with layoutVariant=", layoutVariant, "items=", subcategoryItems.length);
+      log(
+        "transform: proceeding with layoutVariant=",
+        layoutVariant,
+        "items=",
+        subcategoryItems.length
+      );
 
       // Load Embla
       const loaded = await ensureEmblaLoaded();
@@ -318,7 +327,10 @@ export default apiInitializer((api) => {
       // Insert carousel wrapper into the original container
       if (layoutVariant === "boxes") {
         // For boxes layout, prepend wrapper inside the section
-        subcategoryContainer.insertBefore(carouselWrapper, subcategoryContainer.firstChild);
+        subcategoryContainer.insertBefore(
+          carouselWrapper,
+          subcategoryContainer.firstChild
+        );
         log("transform: wrapper inserted at start of boxes section");
       } else {
         // For legacy list, insert before and hide original
@@ -355,24 +367,28 @@ export default apiInitializer((api) => {
 
     // Previous button
     const prevBtn = document.createElement("button");
-    prevBtn.className = "subcategory-carousel__arrow subcategory-carousel__arrow--prev";
+    prevBtn.className =
+      "subcategory-carousel__arrow subcategory-carousel__arrow--prev";
     prevBtn.setAttribute("type", "button");
     prevBtn.setAttribute(
       "aria-label",
       i18n(themePrefix("js.subcategory_carousel.previous_slide"))
     );
-    prevBtn.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/></svg>';
+    prevBtn.innerHTML =
+      '<svg viewBox="0 0 24 24" width="24" height="24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/></svg>';
     prevBtn.addEventListener("click", () => emblaInstance?.scrollPrev());
 
     // Next button
     const nextBtn = document.createElement("button");
-    nextBtn.className = "subcategory-carousel__arrow subcategory-carousel__arrow--next";
+    nextBtn.className =
+      "subcategory-carousel__arrow subcategory-carousel__arrow--next";
     nextBtn.setAttribute("type", "button");
     nextBtn.setAttribute(
       "aria-label",
       i18n(themePrefix("js.subcategory_carousel.next_slide"))
     );
-    nextBtn.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/></svg>';
+    nextBtn.innerHTML =
+      '<svg viewBox="0 0 24 24" width="24" height="24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/></svg>';
     nextBtn.addEventListener("click", () => emblaInstance?.scrollNext());
 
     // Append arrows to nav container
@@ -416,7 +432,12 @@ export default apiInitializer((api) => {
       };
 
       const slidesPerView = computeSlidesPerView();
-      log("initializeEmbla: duration=", duration, "slidesPerView=", slidesPerView);
+      log(
+        "initializeEmbla: duration=",
+        duration,
+        "slidesPerView=",
+        slidesPerView
+      );
 
       emblaInstance = window.EmblaCarousel(viewport, {
         align: settings.carousel_align || "start",
@@ -451,9 +472,7 @@ export default apiInitializer((api) => {
       return;
     }
 
-    const dotsContainer = document.querySelector(
-      ".subcategory-carousel__dots"
-    );
+    const dotsContainer = document.querySelector(".subcategory-carousel__dots");
     if (!dotsContainer) {
       return;
     }
@@ -511,7 +530,10 @@ export default apiInitializer((api) => {
    * Main page change handler
    */
   api.onPageChange(() => {
-    log("onPageChange: triggered", window.location.pathname + window.location.search);
+    log(
+      "onPageChange: triggered",
+      window.location.pathname + window.location.search
+    );
     // Always cleanup previous state
     cleanup();
 
@@ -533,7 +555,12 @@ export default apiInitializer((api) => {
 
     // Guard: feature not enabled for this category
     const enabled = isEnabledForCategory(category.id);
-    log("onPageChange: enabled for category?", enabled, "enabled list=", settings.subcategory_carousel_categories);
+    log(
+      "onPageChange: enabled for category?",
+      enabled,
+      "enabled list=",
+      settings.subcategory_carousel_categories
+    );
     if (!enabled) {
       warn("onPageChange: feature disabled for category; skipping");
       return;
@@ -562,8 +589,9 @@ export default apiInitializer((api) => {
         log("afterRender: attempting transform");
         const p = transformSubcategoryList();
         if (p && typeof p.then === "function") {
-          p.then(() => log("afterRender: transform resolved"))
-            .catch((e) => error("afterRender: transform rejected", e));
+          p.then(() => log("afterRender: transform resolved")).catch((e) =>
+            error("afterRender: transform rejected", e)
+          );
         }
       } catch (e) {
         error("afterRender: transform threw", e);
@@ -571,4 +599,3 @@ export default apiInitializer((api) => {
     });
   });
 });
-

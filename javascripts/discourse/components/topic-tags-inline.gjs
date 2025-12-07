@@ -1,38 +1,10 @@
-import { hash } from "@ember/helper";
-import PluginOutlet from "discourse/components/plugin-outlet";
-import categoryLink from "discourse/helpers/category-link";
-import discourseTags from "discourse/helpers/discourse-tags";
-
-
-/**
- * TopicTagsInline Component
+/** TopicTagsInline
  *
- * Renders category badge and tags inline for topic cards.
- * Shows category if present, followed by tags.
- *
- * BEM Structure:
- * - .topic-card__tags (container for category and tags)
- *
- * Plugin Outlets:
- * - topic-list-after-category: Renders after the category badge
+ * Intentionally kept as a no-op component: tags are rendered within the
+ * byline component to avoid duplicate output. This preserves compatibility
+ * for tests or callers that import the component while preventing it from
+ * adding duplicate DOM nodes in the rendered topic card.
  */
-const TopicTagsInline = <template>
-  {{#if @topic.category}}
-    <div class="topic-card__tags">
-      {{categoryLink @topic.category}}
-      <PluginOutlet
-        @name="topic-list-after-category"
-        @outletArgs={{hash topic=@topic category=@topic.category}}
-      />
-      {{#if @topic.tags}}
-        {{discourseTags @topic mode="list"}}
-      {{/if}}
-    </div>
-  {{else if @topic.tags}}
-    <div class="topic-card__tags">
-      {{discourseTags @topic mode="list"}}
-    </div>
-  {{/if}}
-</template>;
+const TopicTagsInline = <template></template>;
 
 export default TopicTagsInline;

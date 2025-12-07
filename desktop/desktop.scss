@@ -50,14 +50,12 @@
     grid-template-areas:
       "title title"
       "excerpt excerpt"
-      "tags tags"
       "byline byline"
-      "actions actions"
       "metadata metadata";
-    grid-template-rows: auto auto auto auto auto 1fr;
+    grid-template-rows: auto auto auto auto;
     width: 100%;
     padding: var(--space-3) var(--space-5) !important;
-    gap: var(--space-2) 0;
+    gap: var(--space-half) 0;
 
     // Ensure featured link inherits proper styling in grid layout
     .link-top-line a.topic-featured-link {
@@ -93,7 +91,7 @@
   }
 
   .main-link {
-    padding: var(--space-3) var(--space-5) var(--space-3);
+    padding: var(--space-3) var(--space-3) var(--space-1);
   }
 }
 

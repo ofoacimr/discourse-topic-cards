@@ -43,24 +43,22 @@ module("Topic Cards Theme Component", function (hooks) {
         .hasText("This is a test excerpt", "Excerpt text is rendered");
     });
 
-    test("TopicTagsInline renders category and tags", async function (assert) {
+    test("Tags render in byline when topic has tags", async function (assert) {
       this.set("topic", {
-        category: {
-          id: 1,
-          name: "Test Category",
-          slug: "test-category",
-        },
+        creator: { username: "testuser" },
         tags: ["tag1", "tag2"],
       });
 
       await render(hbs`
-        <TopicTagsInline @topic={{this.topic}} />
+        <TopicByline @topic={{this.topic}} />
       `);
 
-      assert.dom(".topic-card__tags").exists("Tags container exists");
       assert
-        .dom(".topic-card__tags .badge-category__wrapper")
-        .exists("Category badge is rendered");
+        .dom(".topic-card__tags-inline-in-byline")
+        .exists("Tags wrapper exists in byline");
+      assert
+        .dom(".topic-card__tags-inline-in-byline")
+        .includesText("tag1", "Tag text is rendered in byline");
     });
 
     test("TopicByline renders author with BEM classes", async function (assert) {

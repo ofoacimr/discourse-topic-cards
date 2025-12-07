@@ -72,14 +72,12 @@
     grid-template-areas:
       "title title"
       "excerpt excerpt"
-      "tags tags"
       "byline byline"
-      "actions actions"
       "metadata metadata";
-    grid-template-rows: auto auto auto auto auto 1fr;
+    grid-template-rows: auto auto auto auto;
     width: 100%;
     padding: var(--space-3) var(--space-5) !important;
-    gap: var(--space-2) 0;
+    gap: var(--space-half) 0;
 
     &:first-child {
       grid-template-columns: auto 1fr;
@@ -102,8 +100,8 @@
       }
 
       // Hide truly empty elements to prevent phantom grid tracks
-      > .topic-post-badges:empty,
-      > .topic-statuses:empty {
+      >.topic-post-badges:empty,
+      >.topic-statuses:empty {
         display: none;
       }
 
@@ -168,7 +166,7 @@
     }
 
     // Stack badges and statuses on very narrow screens (only when both exist)
-    @media (width <= 340px) {
+    @media (width <=340px) {
       .link-top-line:has(.topic-post-badges:not(:empty)):has(.topic-statuses:not(:empty)) {
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
@@ -229,7 +227,7 @@
   }
 
   .topic-card__thumbnail {
-    flex: 0 0 35%;
+    flex: 0 0 25%;
     max-width: 150px;
     text-align: left;
     margin-bottom: 0;
@@ -270,14 +268,12 @@
     grid-template-areas:
       "title title"
       "excerpt excerpt"
-      "tags tags"
       "byline byline"
-      "actions actions"
       "metadata metadata";
-    grid-template-rows: auto auto auto auto auto 1fr;
+    grid-template-rows: auto auto auto auto;
     width: 100%;
     padding: 0 !important;
-    gap: var(--space-1) 0;
+    gap: 0 0;
 
     &:first-child {
       grid-template-columns: auto 1fr;
@@ -301,8 +297,8 @@
       }
 
       // Hide truly empty elements to prevent phantom grid tracks
-      > .topic-post-badges:empty,
-      > .topic-statuses:empty {
+      >.topic-post-badges:empty,
+      >.topic-statuses:empty {
         display: none;
       }
 
@@ -367,7 +363,7 @@
     }
 
     // Stack badges and statuses on very narrow screens (only when both exist)
-    @media (width <= 340px) {
+    @media (width <=340px) {
       .link-top-line:has(.topic-post-badges:not(:empty)):has(.topic-statuses:not(:empty)) {
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
@@ -402,8 +398,11 @@
 
 // Overflow safety tweaks for mobile
 .topic-card {
+
   // Ensure grid area can shrink inside the flex card
-  .main-link { min-width: 0; }
+  .main-link {
+    min-width: 0;
+  }
 
   .topic-card__metadata {
     min-width: 0;
@@ -472,4 +471,3 @@
     }
   }
 }
-

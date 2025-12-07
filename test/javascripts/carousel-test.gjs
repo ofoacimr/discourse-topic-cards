@@ -353,7 +353,7 @@ module("Topic Cards Carousel Component", function (hooks) {
   });
 
   module("CarouselTopicCard Component", function () {
-    test("renders category badge when topic has category", async function (assert) {
+    test("does not render category badge even when topic has category", async function (assert) {
       this.set("topic", {
         id: 1,
         title: "Test Topic with Category",
@@ -370,10 +370,7 @@ module("Topic Cards Carousel Component", function (hooks) {
 
       assert
         .dom(".carousel-topic-card__category")
-        .exists("Category container exists");
-      assert
-        .dom(".carousel-topic-card__category .badge-category__wrapper")
-        .exists("Category badge is rendered");
+        .doesNotExist("Category container not rendered per design");
     });
 
     test("does not render category section when topic has no category", async function (assert) {
@@ -450,7 +447,7 @@ module("Topic Cards Carousel Component", function (hooks) {
       );
     });
 
-    test("plugin outlet is rendered after category badge", async function (assert) {
+    test("plugin outlet not present since category is removed", async function (assert) {
       this.set("topic", {
         id: 1,
         title: "Test Topic",
@@ -465,17 +462,10 @@ module("Topic Cards Carousel Component", function (hooks) {
 
       await render(hbs`<CarouselTopicCard @topic={{this.topic}} />`);
 
-      // Plugin outlet should exist in the category container
       const categoryContainer = this.element.querySelector(
         ".carousel-topic-card__category"
       );
-      assert.ok(categoryContainer, "Category container exists");
-
-      // Check that badge exists in the category container
-      const badge = categoryContainer.querySelector(".badge-category__wrapper");
-      assert.ok(badge, "Category badge exists");
-      // Outlet may not render visible content without connectors, but the container should exist
-      // We just verify the structure is correct
+      assert.notOk(categoryContainer, "No category container is present");
     });
   });
 });

@@ -22,19 +22,29 @@
 
 // Topic cards list container
 .topic-cards-list {
+
   // Map border radius setting to component-scoped CSS variable
   // Increased by one step for more modern, rounded appearance
-  @if $card_border_radius == "none" {
+  @if $card_border_radius =="none" {
     --topic-cards-border-radius: 0;
-  } @else if $card_border_radius == "small" {
+  }
+
+  @else if $card_border_radius =="small" {
     --topic-cards-border-radius: calc(var(--d-border-radius) * 1.5);
-  } @else if $card_border_radius == "medium" {
+  }
+
+  @else if $card_border_radius =="medium" {
     --topic-cards-border-radius: var(--d-border-radius-large);
-  } @else if $card_border_radius == "large" {
+  }
+
+  @else if $card_border_radius =="large" {
     --topic-cards-border-radius: calc(var(--d-border-radius-large) * 1.5);
-  } @else if $card_border_radius == "extra_large" {
+  }
+
+  @else if $card_border_radius =="extra_large" {
     --topic-cards-border-radius: calc(var(--d-border-radius-large) * 2);
   }
+
   display: block;
   margin-top: var(--space-6);
 
@@ -76,6 +86,7 @@
   // This removes the source of the stray &nbsp; text node without DOM surgery
   // IMPORTANT: Only hide the anchor itself, not the container or plugin outlets
   .link-top-line {
+
     // Hide inline featured link anchor in card layouts
     a.topic-featured-link {
       display: none;
@@ -144,7 +155,7 @@
         grid-area: byline;
         display: flex;
         align-items: baseline;
-        gap: var(--space-1);
+        gap: var(--space-3);
         flex-wrap: wrap;
         font-size: var(--font-down-1);
         color: var(--metadata-color);
@@ -212,7 +223,7 @@
         &-items {
           display: flex;
           align-items: center;
-          gap: var(--space-4);
+          gap: var(--space-half) var(--space-3);
           flex-wrap: wrap;
           min-width: 0;
         }
@@ -302,7 +313,7 @@
       }
 
       &__excerpt-text {
-        margin-block: var(--space-1) var(--space-3);
+        margin-block: var(--space-1) var(--space-half);
         font-size: var(--font-down-1);
         color: var(--excerpt-color);
         line-height: var(--line-height-large);
@@ -371,6 +382,7 @@
 
   // hiding core elements
   .num {
+
     &.posts,
     &.views,
     &.activity {
@@ -414,15 +426,13 @@
     display: grid;
     grid-template-areas:
       "title title"
-      "tags tags"
       "excerpt excerpt"
       "byline byline"
-      "actions actions"
       "metadata metadata";
-    grid-template-rows: auto auto auto auto auto 1fr;
+    grid-template-rows: auto auto auto auto;
     flex-grow: 1;
-    padding: var(--space-3) var(--space-5) var(--space-3) ;
-    gap: var(--space-2) 0;
+    padding: var(--space-3) var(--space-3) var(--space-3);
+    gap: var(--space-half) 0;
     box-sizing: border-box;
     box-shadow: none !important;
 
@@ -459,8 +469,8 @@
       }
 
       // Hide truly empty elements to prevent phantom grid tracks
-      > .topic-post-badges:empty,
-      > .topic-statuses:empty {
+      >.topic-post-badges:empty,
+      >.topic-statuses:empty {
         display: none;
       }
 
@@ -742,23 +752,19 @@
     // Left gradient fade
     &::before {
       left: 0;
-      background: linear-gradient(
-        to right,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.10) 0%,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.18) 40%,
-        transparent 100%
-      );
+      background: linear-gradient(to right,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.10) 0%,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.18) 40%,
+          transparent 100%);
     }
 
     // Right gradient fade
     &::after {
       right: 0;
-      background: linear-gradient(
-        to left,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.10) 0%,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.18) 40%,
-        transparent 100%
-      );
+      background: linear-gradient(to left,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.10) 0%,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.18) 40%,
+          transparent 100%);
     }
 
     // Show left gradient when there's a previous slide
@@ -776,7 +782,7 @@
     display: flex;
     gap: var(--carousel-slide-gap); // Use flex gap for consistent spacing, including clones
     padding: var(--space-3);
-        margin-left: var(--space-2);
+    margin-left: var(--space-2);
 
   }
 
@@ -786,10 +792,7 @@
     // Width is computed dynamically via CSS variable --spv (slides per view)
     // Leave a small spare width (peek) so the next view's first slide is visible
     // Formula: (100% - (gap * (spv - 1)) - peek) / spv
-    width: calc(
-      (100% - (var(--carousel-slide-gap) * (var(--spv, var(--carousel-spv-cap)) - 1)) - var(--carousel-peek-right, 24px)) /
-      var(--spv, var(--carousel-spv-cap))
-    );
+    width: calc((100% - (var(--carousel-slide-gap) * (var(--spv, var(--carousel-spv-cap)) - 1)) - var(--carousel-peek-right, 24px)) / var(--spv, var(--carousel-spv-cap)));
 
     // Fade in animation for slides
     animation: fadeIn 0.3s ease-in;
@@ -816,7 +819,7 @@
     margin-top: var(--space-3);
     padding: 0 var(--space-2);
 
-    @media (width >= 768px) {
+    @media (width >=768px) {
       gap: var(--space-4);
       padding: 0 var(--space-3);
     }
@@ -850,7 +853,7 @@
     padding: 0;
     flex-shrink: 0;
 
-    @media (width >= 768px) {
+    @media (width >=768px) {
       width: 40px;
       height: 40px;
       font-size: 24px;
@@ -922,8 +925,9 @@
       transform: scale(1.2);
     }
   }
+
   // Mobile edge-peek layout (Embla pattern): show next slide's left edge
-  @media (width <= 767px) {
+  @media (width <=767px) {
     // Mobile: smaller edge reveal, peek = gap + edge
     --carousel-peek-edge: 6px;
     --carousel-peek-right: calc(var(--carousel-slide-gap) + var(--carousel-peek-edge));
@@ -947,21 +951,17 @@
     }
 
     &__viewport::before {
-      background: linear-gradient(
-        to right,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.06) 0%,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.12) 40%,
-        transparent 100%
-      );
+      background: linear-gradient(to right,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.06) 0%,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.12) 40%,
+          transparent 100%);
     }
 
     &__viewport::after {
-      background: linear-gradient(
-        to left,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.06) 0%,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.12) 40%,
-        transparent 100%
-      );
+      background: linear-gradient(to left,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.06) 0%,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.12) 40%,
+          transparent 100%);
     }
   }
 
@@ -1031,7 +1031,7 @@
     align-items: center;
     justify-content: center;
 
-    @media (width <= 767px) {
+    @media (width <=767px) {
       aspect-ratio: 16 / 10;
     }
 
@@ -1062,13 +1062,13 @@
 
   &__content {
     flex: 1;
-    padding: var(--space-3) var(--space-5) var(--space-3); // Match topic card padding
+    padding: var(--space-3) var(--space-3) var(--space-3); // Match topic card padding
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 80px;
 
-    @media (width <= 767px) {
+    @media (width <=767px) {
       padding: var(--space-3);
       min-height: 70px;
     }
@@ -1088,7 +1088,7 @@
     text-overflow: ellipsis;
     transition: color 0.2s ease;
 
-    @media (width <= 767px) {
+    @media (width <=767px) {
       font-size: var(--font-up-1);
       line-height: var(--line-height-medium);
       margin-bottom: var(--space-1); // Tighter spacing on mobile
@@ -1107,7 +1107,7 @@
       display: inline-flex;
     }
 
-    @media (width <= 767px) {
+    @media (width <=767px) {
       font-size: var(--font-0);
       gap: var(--space-1);
     }
@@ -1128,7 +1128,7 @@
 }
 
 // Mobile fixed thumbnail height
-@media (width <= 767px) {
+@media (width <=767px) {
   .carousel-topic-card__thumbnail {
     height: #{$carousel-mobile-thumbnail-height-px}px;
     aspect-ratio: auto; // override mobile 16/10
@@ -1177,23 +1177,19 @@
     // Left gradient fade
     &::before {
       left: 0;
-      background: linear-gradient(
-        to right,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.10) 0%,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.18) 40%,
-        transparent 100%
-      );
+      background: linear-gradient(to right,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.10) 0%,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.18) 40%,
+          transparent 100%);
     }
 
     // Right gradient fade
     &::after {
       right: 0;
-      background: linear-gradient(
-        to left,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.10) 0%,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.18) 40%,
-        transparent 100%
-      );
+      background: linear-gradient(to left,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.10) 0%,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.18) 40%,
+          transparent 100%);
     }
 
     // Show left gradient when there's a previous slide
@@ -1224,16 +1220,10 @@
     // Width is computed dynamically via CSS variable --spv (slides per view)
     // Leave a small spare width (peek) so the next view's first slide is visible
     // Formula: (100% - (gap * (spv - 1)) - peek) / spv
-    width: calc(
-      (100% - (var(--carousel-slide-gap) * (var(--spv, var(--carousel-spv-cap)) - 1)) - var(--carousel-peek-right, 24px)) /
-      var(--spv, var(--carousel-spv-cap))
-    );
+    width: calc((100% - (var(--carousel-slide-gap) * (var(--spv, var(--carousel-spv-cap)) - 1)) - var(--carousel-peek-right, 24px)) / var(--spv, var(--carousel-spv-cap)));
 
     @media (max-width: 767px) {
-      width: calc(
-        (100% - (var(--carousel-slide-gap) * (var(--spv, 1) - 1)) - var(--carousel-peek-right, 22px)) /
-        var(--spv, 1)
-      );
+      width: calc((100% - (var(--carousel-slide-gap) * (var(--spv, 1) - 1)) - var(--carousel-peek-right, 22px)) / var(--spv, 1));
     }
   }
 
@@ -1246,7 +1236,7 @@
     margin-top: var(--space-3);
     padding: 0 var(--space-2);
 
-    @media (width >= 768px) {
+    @media (width >=768px) {
       gap: var(--space-4);
       padding: 0 var(--space-3);
     }
@@ -1280,7 +1270,7 @@
     padding: 0;
     flex-shrink: 0;
 
-    @media (width >= 768px) {
+    @media (width >=768px) {
       width: 40px;
       height: 40px;
       font-size: 24px;
@@ -1312,7 +1302,7 @@
       width: 20px;
       height: 20px;
 
-      @media (width >= 768px) {
+      @media (width >=768px) {
         width: 24px;
         height: 24px;
       }
@@ -1364,7 +1354,7 @@
   }
 
   // Mobile edge-peek layout: show next slide's right edge
-  @media (width <= 767px) {
+  @media (width <=767px) {
     // Mobile: smaller edge reveal, peek = gap + edge
     --carousel-peek-edge: var(--space-6);
     --carousel-peek-right: calc(var(--carousel-slide-gap) + var(--carousel-peek-edge));
@@ -1376,21 +1366,17 @@
     }
 
     &__viewport::before {
-      background: linear-gradient(
-        to right,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.06) 0%,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.12) 40%,
-        transparent 100%
-      );
+      background: linear-gradient(to right,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.06) 0%,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.12) 40%,
+          transparent 100%);
     }
 
     &__viewport::after {
-      background: linear-gradient(
-        to left,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.06) 0%,
-        rgb(var(--secondary-rgb, 255, 255, 255), 0.12) 40%,
-        transparent 100%
-      );
+      background: linear-gradient(to left,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.06) 0%,
+          rgb(var(--secondary-rgb, 255, 255, 255), 0.12) 40%,
+          transparent 100%);
     }
   }
 }

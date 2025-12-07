@@ -205,7 +205,8 @@ export default class TopicCardsCarousel extends Component {
         const previousDefine = window.define;
         const previousModule = window.module;
         const previousExports = window.exports;
-        const hadAMD = typeof previousDefine === "function" && previousDefine.amd;
+        const hadAMD =
+          typeof previousDefine === "function" && previousDefine.amd;
         try {
           if (hadAMD) {
             window.define = undefined;

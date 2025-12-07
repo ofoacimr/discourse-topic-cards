@@ -23,8 +23,7 @@ import Component from "@glimmer/component";
 import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
-import PluginOutlet from "discourse/components/plugin-outlet";
-import categoryLink from "discourse/helpers/category-link";
+// Category output removed per design: do not show category information
 import dIcon from "discourse/helpers/d-icon";
 import lazyHash from "discourse/helpers/lazy-hash";
 import { wantsNewWindow } from "discourse/lib/intercept-click";
@@ -161,18 +160,7 @@ export default class CarouselTopicCard extends Component {
           <h3 class="carousel-topic-card__title">{{this.topic.title}}</h3>
         </a>
 
-        {{#if this.topic.category}}
-          <div class="carousel-topic-card__category">
-            {{categoryLink this.topic.category}}
-            <PluginOutlet
-              @name="topic-list-after-category"
-              @outletArgs={{lazyHash
-                topic=this.topic
-                category=this.topic.category
-              }}
-            />
-          </div>
-        {{/if}}
+        {{! Category intentionally not rendered }}
       </div>
     </div>
   </template>
