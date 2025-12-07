@@ -85,9 +85,9 @@ export default class TopicThumbnail extends Component {
   }
 
   <template>
-    <td class="topic-card__thumbnail">
-      <a href={{this.url}}>
-        {{#if this.hasThumbnail}}
+    {{#if this.hasThumbnail}}
+      <td class="topic-card__thumbnail">
+        <a href={{this.url}}>
           <img
             class="main-thumbnail"
             src={{this.fallbackSrc}}
@@ -96,8 +96,8 @@ export default class TopicThumbnail extends Component {
             height={{this.height}}
             loading="lazy"
           />
-        {{/if}}
-      </a>
-    </td>
+        </a>
+      </td>
+    {{/if}}
   </template>
 }
