@@ -5,7 +5,8 @@
 
 
   .topic-list-body {
-    display: grid; /* higher specificity selector beats common flex rule */
+    display: grid;
+    /* higher specificity selector beats common flex rule */
     grid-template-columns: repeat(auto-fill, minmax(var(--tc-grid-col-min), 1fr));
     gap: var(--space-4);
   }
@@ -67,7 +68,8 @@
 
 // List layout for desktop: row layout with thumbnail on left
 .topic-card--list {
-  gap: var(--space-6);
+  // Reduce horizontal gap between thumbnail and content
+  gap: var(--space-half);
 
   .topic-card__thumbnail {
     flex: 0 0 30%;
