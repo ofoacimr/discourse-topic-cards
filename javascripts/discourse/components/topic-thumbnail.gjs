@@ -11,7 +11,12 @@ export default class TopicThumbnail extends Component {
 
   @computed("topic.thumbnails")
   get hasThumbnail() {
-    return !!this.topic.thumbnails;
+    const thumbs = this.topic.thumbnails;
+    if (!thumbs || !Array.isArray(thumbs)) {
+      return false;
+    }
+    // Consider it a thumbnail only if there's at least one item with a URL
+    return thumbs.some((t) => t && t.url);
   }
 
   @computed("topic.thumbnails", "displayWidth")
@@ -91,10 +96,6 @@ export default class TopicThumbnail extends Component {
             height={{this.height}}
             loading="lazy"
           />
-        {{else}}
-          <div class="thumbnail-placeholder" aria-hidden="true">
-            {{dIcon this.placeholderIconName}}
-          </div>
         {{/if}}
       </a>
     </td>
